@@ -300,7 +300,7 @@ module VSphereCloud
         @client,
         cluster.mob
       )
-      drs_rule.add_vm_host_affinity_rule(cluster.vm_group, cluster.host_group)
+      drs_rule.add_vm_host_affinity_rule(cluster.vm_group, cluster.host_group, cluster.host_group_rule_type)
     end
 
     def apply_storage_policy(vm_config, vm)
