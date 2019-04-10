@@ -26,8 +26,8 @@ describe 'CPI', nsx_transformers: true do
     end
     NSXT::ApiClient.new(configuration)
   end
-  let(:nsgroup_name_1) { "BOSH-CPI-test-#{SecureRandom.uuid}" }
-  let(:nsgroup_name_2) { "BOSH-CPI-test-#{SecureRandom.uuid}" }
+  let(:nsgroup_name_1) { 'default.cpi-test' }#"BOSH-CPI-test-#{SecureRandom.uuid}" }
+  let(:nsgroup_name_2) { 'default.Hello' }#"BOSH-CPI-test-#{SecureRandom.uuid}" }
   let(:server_pool_name_1) { "BOSH-CPI-test-#{SecureRandom.uuid}" }
   let(:server_pool_name_2) { "BOSH-CPI-test-#{SecureRandom.uuid}" }
   let(:vm_type) do
@@ -155,18 +155,20 @@ describe 'CPI', nsx_transformers: true do
       end
 
       context 'and all the NSGroups exist' do
-        let!(:nsgroup_1) { create_nsgroup(nsgroup_name_1) }
-        let!(:nsgroup_2) { create_nsgroup(nsgroup_name_2) }
+        #let!(:nsgroup_1) { create_nsgroup(nsgroup_name_1) }
+        #let!(:nsgroup_2) { create_nsgroup(nsgroup_name_2) }
         before do
           grouping_object_svc = NSXT::GroupingObjectsApi.new(nsxt)
+          require 'pry-byebug'
+          binding.pry
           nsgroups = grouping_object_svc.list_ns_groups.results.select do |nsgroup|
             [nsgroup_name_1, nsgroup_name_2].include?(nsgroup.display_name)
           end
           expect(nsgroups.length).to eq(2)
         end
         after do
-          delete_nsgroup(nsgroup_1)
-          delete_nsgroup(nsgroup_2)
+          #delete_nsgroup(nsgroup_1)
+          #delete_nsgroup(nsgroup_2)
         end
 
         it 'adds all the logical ports of the VM to all given NSGroups' do

@@ -122,6 +122,10 @@ module VSphereCloud
       vcenter['password']
     end
 
+    def use_nsxt_policy_client?
+      true
+    end
+
     def vcenter_default_disk_type
       vcenter['default_disk_type']
     end
